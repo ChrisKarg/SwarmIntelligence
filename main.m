@@ -40,16 +40,20 @@ Function_name='F0'; % Name of the test function, range from F1-F13
 
 T=500; % Maximum number of iterations
 
-dimSize = 2;   %dimension size
+NumberofPoints = 3;
+
+dimSize = NumberofPoints*2;   %dimension size
 
 start = [0 0];     %Startpunkt
 
-End = [6 6];     %Ziel
+End = [10 10];     %Ziel
 
 % Load details of the selected benchmark function
-[lb,ub,dim,fobj]=Get_Functions_SMA(Function_name,dimSize,start,End);
+[lb,ub,dim,fobj]=Get_Functions_SMA(Function_name,dimSize);
+% [lb,ub,dim,fobj]=F0(dimSize,start,End);
 
-[Destination_fitness,bestPositions,Convergence_curve]=SMA(N,T,lb,ub,dim,fobj);
+
+[Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,T,lb,ub,dim,fobj);
 
 
 %Draw objective space

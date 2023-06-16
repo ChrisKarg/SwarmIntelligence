@@ -38,7 +38,7 @@
 
 % Max_iter: maximum iterations, N: populatoin size, Convergence_curve: Convergence curve
 % To run SMA: [Destination_fitness,bestPositions,Convergence_curve]=SMA(N,Max_iter,lb,ub,dim,fobj)
-function [Destination_fitness,bestPositions,Convergence_curve]=SMA(N,Max_iter,lb,ub,dim,fobj)
+function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,lb,ub,dim,fobj)
 disp('SMA is now tackling your problem')
 
 % initialize position
@@ -110,6 +110,9 @@ while  it <= Max_iter
                 end
             end
         end
+%         if ~isvalid(X(i,:)) %prüfen ob Spline zwischen den Punkte in den Hindernissen liegt
+%             X(i,:) = unifrnd(lb,ub,dim); %Wenn Punkte nicht korrekt liegen werden sie zufällig auf dem Gebiet gleichverteilt
+%         end
     end
     Convergence_curve(it)=Destination_fitness;
     it=it+1;

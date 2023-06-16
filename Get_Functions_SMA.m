@@ -12,7 +12,7 @@
 % ------------------------------------------------------------------------------
 
 
-function [lb,ub,dim,fobj] = Get_Functions_SMA(F,DimValue,start,End)
+function [lb,ub,dim,fobj] = Get_Functions_SMA(F,DimValue)
 
 switch F
 
@@ -107,20 +107,20 @@ end
 %F0 
 
 function o = F0(x)
-start = [0 0];
-End = [6 6];
-xnew = [start x End];
-total_distance =0;
-for i = 1:2:length(xnew)-2
-    % Aktueller Punkt
-    current_point = [xnew(i), xnew(i+1)];
-    %nächster Punkt
-    next_point = [xnew(i+2), xnew(i+3)];
-
-    % Aktualisierung der Gesamtentfernung
-    total_distance = total_distance + norm(current_point - next_point);
-end
-o= total_distance;
+    start = [0 0];
+    End = [10 6];
+    xnew = [start x End];
+    total_distance =0;
+    for i = 1:2:length(xnew)-2
+        % Aktueller Punkt
+        current_point = [xnew(i), xnew(i+1)];
+        %nächster Punkt
+        next_point = [xnew(i+2), xnew(i+3)];
+    
+        % Aktualisierung der Gesamtentfernung
+        total_distance = total_distance + norm(current_point - next_point);
+    end
+    o= total_distance;
 
 end
 % F1
