@@ -38,84 +38,98 @@
 
 % Max_iter: maximum iterations, N: populatoin size, Convergence_curve: Convergence curve
 % To run SMA: [Destination_fitness,bestPositions,Convergence_curve]=SMA(N,Max_iter,lb,ub,dim,fobj)
-function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,lb,ub,dim,fobj)
-disp('SMA is now tackling your problem')
-
-% initialize position
-bestPositions=zeros(1,dim);
-Destination_fitness=inf;%change this to -inf for maximization problems
-AllFitness = inf*ones(N,1);%record the fitness of all slime mold
-weight = ones(N,dim);%fitness weight of each slime mold
-%Initialize the set of random solutions
-X=initialization(N,dim,ub,lb);
-Convergence_curve=zeros(1,Max_iter);
-it=1;  %Number of iterations
-lb=ones(1,dim).*lb; % lower boundary 
-ub=ones(1,dim).*ub; % upper boundary
-z=0.03; % parameter
-
-% Main loop
-while  it <= Max_iter
+function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot)
+    disp('SMA is now tackling your problem')
     
-    %sort the fitness
-    for i=1:N
-        % Check if solutions go outside the search space and bring them back
-        Flag4ub=X(i,:)>ub;
-        Flag4lb=X(i,:)<lb;
-        X(i,:)=(X(i,:).*(~(Flag4ub+Flag4lb)))+ub.*Flag4ub+lb.*Flag4lb;
-        AllFitness(i) = fobj(X(i,:));
-    end
+    % initialize position
+    bestPositions=zeros(1,dim);
+    Destination_fitness=inf;%change this to -inf for maximization problems
+    AllFitness = inf*ones(N,1);%record the fitness of all slime mold
+    weight = ones(N,dim);%fitness weight of each slime mold
+    %Initialize the set of random solutions
+    X=initialization(N,dim,ub,lb);
+    Convergence_curve=zeros(1,Max_iter);
+    it=1;  %Number of iterations
+    lb=ones(1,dim).*lb; % lower boundary 
+    ub=ones(1,dim).*ub; % upper boundary
+    z=0.03; % parameter
     
-    [SmellOrder,SmellIndex] = sort(AllFitness);  %Eq.(2.6)
-    worstFitness = SmellOrder(N);
-    bestFitness = SmellOrder(1);
-
-    S=bestFitness-worstFitness+eps;  % plus eps to avoid denominator zero
-
-    %calculate the fitness weight of each slime mold
-    for i=1:N
-        for j=1:dim
-            if i<=(N/2)  %Eq.(2.5)
-                weight(SmellIndex(i),j) = 1+rand()*log10((bestFitness-SmellOrder(i))/(S)+1);
+    % Main loop
+    while  it <= Max_iter
+        
+        %sort the fitness
+        for i=1:N
+            % Check if solutions go outside the search space and bring them back
+            Flag4ub=X(i,:)>ub;
+            Flag4lb=X(i,:)<lb;
+            X(i,:)=(X(i,:).*(~(Flag4ub+Flag4lb)))+ub.*Flag4ub+lb.*Flag4lb;
+            % Check if the F00 Function is used which requires different
+            % inputs
+            if strcmp(Function_name, 'F00')
+                [AllFitness(i), ~] = fobj(X(i,:), model);
             else
-                weight(SmellIndex(i),j) = 1-rand()*log10((bestFitness-SmellOrder(i))/(S)+1);
+                AllFitness(i) = fobj(X(i,:));
             end
         end
-    end
+        
+        [SmellOrder,SmellIndex] = sort(AllFitness);  %Eq.(2.6)
+        worstFitness = SmellOrder(N);
+        bestFitness = SmellOrder(1);
     
-    %update the best fitness value and best position
-    if bestFitness < Destination_fitness
-        bestPositions=X(SmellIndex(1),:);
-        Destination_fitness = bestFitness;
-    end
+        S=bestFitness-worstFitness+eps;  % plus eps to avoid denominator zero
     
-    a = atanh(-(it/Max_iter)+1);   %Eq.(2.4)
-    b = 1-it/Max_iter;
-    % Update the Position of search agents
-    for i=1:N
-        if rand<z     %Eq.(2.7)
-            X(i,:) = (ub-lb)*rand+lb;
-        else
-            p =tanh(abs(AllFitness(i)-Destination_fitness));  %Eq.(2.2)
-            vb = unifrnd(-a,a,1,dim);  %Eq.(2.3)
-            vc = unifrnd(-b,b,1,dim);
+        %calculate the fitness weight of each slime mold
+        for i=1:N
             for j=1:dim
-                r = rand();
-                A = randi([1,N]);  % two positions randomly selected from population
-                B = randi([1,N]);
-                if r<p    %Eq.(2.1)
-                    X(i,j) = bestPositions(j)+ vb(j)*(weight(i,j)*X(A,j)-X(B,j));
+                if i<=(N/2)  %Eq.(2.5)
+                    weight(SmellIndex(i),j) = 1+rand()*log10((bestFitness-SmellOrder(i))/(S)+1);
                 else
-                    X(i,j) = vc(j)*X(i,j);
+                    weight(SmellIndex(i),j) = 1-rand()*log10((bestFitness-SmellOrder(i))/(S)+1);
                 end
             end
         end
-%         if ~isvalid(X(i,:)) %prüfen ob Spline zwischen den Punkte in den Hindernissen liegt
-%             X(i,:) = unifrnd(lb,ub,dim); %Wenn Punkte nicht korrekt liegen werden sie zufällig auf dem Gebiet gleichverteilt
-%         end
+        
+        %update the best fitness value and best position
+        if bestFitness < Destination_fitness
+            bestPositions=X(SmellIndex(1),:);
+            Destination_fitness = bestFitness;
+        end
+        
+        a = atanh(-(it/Max_iter)+1);   %Eq.(2.4)
+        b = 1-it/Max_iter;
+        % Update the Position of search agents
+        for i=1:N
+            if rand<z     %Eq.(2.7)
+                X(i,:) = (ub-lb)*rand+lb;
+            else
+                p =tanh(abs(AllFitness(i)-Destination_fitness));  %Eq.(2.2)
+                vb = unifrnd(-a,a,1,dim);  %Eq.(2.3)
+                vc = unifrnd(-b,b,1,dim);
+                for j=1:dim
+                    r = rand();
+                    A = randi([1,N]);  % two positions randomly selected from population
+                    B = randi([1,N]);
+                    if r<p    %Eq.(2.1)
+                        X(i,j) = bestPositions(j)+ vb(j)*(weight(i,j)*X(A,j)-X(B,j));
+                    else
+                        X(i,j) = vc(j)*X(i,j);
+                    end
+                end
+            end
+    %         if ~isvalid(X(i,:)) %prüfen ob Spline zwischen den Punkte in den Hindernissen liegt
+    %             X(i,:) = unifrnd(lb,ub,dim); %Wenn Punkte nicht korrekt liegen werden sie zufällig auf dem Gebiet gleichverteilt
+    %         end
+        end
+        Convergence_curve(it)=Destination_fitness;
+        it=it+1;
+    
+        % Plot Solution
+        if (mod(it-1, 5)==0) && strcmp('F00', Function_name) && showPlot
+            figure(1);
+            [AllFitness, sol] = fobj(bestPositions, model);
+            PlotSolution_SMA(sol, model);
+            title(AllFitness)
+            pause(0.005);
+        end
     end
-    Convergence_curve(it)=Destination_fitness;
-    it=it+1;
-end
-
 end

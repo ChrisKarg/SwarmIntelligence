@@ -35,15 +35,15 @@ close all
 clc
 
 %% Intitialisierung
-showPlot = 0;
+showPlot = True;
 
 N=30; % Number of search agents
 
 Function_name='F00'; % Name of the test function, range from F10-F13
 
-T=200; % Maximum number of iterations
+T=500; % Maximum number of iterations
 
-NumberofPoints = 2;
+NumberofPoints = 3;
 
 dimSize = NumberofPoints*2;   %dimension size
 
@@ -55,8 +55,8 @@ model = CreateModelSMA(lb,ub); % Festlegen der Karte, inkl. Start und Endpunkt
 
 [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
 
-%% Plots
-% Convergernce Curve
+%% Plotss
+%Draw objective space
 figure,
 hold on
 semilogy(Convergence_curve,'Color','b','LineWidth',4);
@@ -68,12 +68,10 @@ grid off
 box on
 legend('SMA')
 
-% Endgültiges Ergebnis
 figure
 if strcmp(Function_name, 'F00')
     [AllFitness, sol] = fobj(bestPositions, model);
     PlotSolution_SMA(sol, model);
-    title(['Bestes Ergebnis des SMAs mit einer Weglänge von ' num2str(AllFitness)])
 else
     points = [start bestPositions End];
     points2 = zeros(length(points)/2, 2);

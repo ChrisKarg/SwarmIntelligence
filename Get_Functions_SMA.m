@@ -15,6 +15,12 @@
 function [lb,ub,dim,fobj] = Get_Functions_SMA(F,DimValue)
 
 switch F
+    
+    case 'F00'
+        fobj = @F00;
+        lb=-10;
+        ub=10;
+        dim=DimValue;
 
     case 'F0'
         fobj = @F0;
@@ -104,7 +110,15 @@ end
 end
 
 
-%F0 
+%F00
+function [o, sol]=F00(x,model)
+    sol1.x = x(1:2:end);
+    sol1.y = x(2:2:end);
+    sol=ParseSolution_SMA(sol1,model);
+    
+    beta=100;
+    o=sol.L*(1+beta*sol.Violation);
+end
 
 function o = F0(x)
     start = [0 0];
