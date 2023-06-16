@@ -124,7 +124,7 @@ function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,
         it=it+1;
     
         % Plot Solution
-        if (mod(it-1, 5)==0) && strcmp('F00', Function_name) && showPlot
+        if (mod(it-1, showPlot)==0) && strcmp('F00', Function_name) && showPlot
             figure(1);
             [AllFitness, sol] = fobj(bestPositions, model);
             PlotSolution_SMA(sol, model);

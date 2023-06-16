@@ -28,14 +28,15 @@
 % You can find the SMA paper at https://doi.org/10.1016/j.future.2020.03.055
 % Please follow the paper for related updates in researchgate: https://www.researchgate.net/publication/340431861_Slime_mould_algorithm_A_new_method_for_stochastic_optimization
 %---------------------------------------------------------------------------------------------------------------------------
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 clear all 
 close all
 clc
 
 %% Intitialisierung
-showPlot = 0;
+showPlot = 6; % Wie oft soll die aktuelle Lösung geplottet werden (0 -> nie
+% , 1 -> jedes Mail, 2 -> jedes zweite Mal,..., 5 -> jedes fünfte Mal, ...)
 
 N=30; % Number of search agents
 
@@ -43,7 +44,7 @@ Function_name='F00'; % Name of the test function, range from F10-F13
 
 T=200; % Maximum number of iterations
 
-NumberofPoints = 2;
+NumberofPoints = 5;
 
 dimSize = NumberofPoints*2;   %dimension size
 
@@ -51,8 +52,10 @@ dimSize = NumberofPoints*2;   %dimension size
 % Load details of the selected benchmark function
 [lb,ub,dim,fobj]=Get_Functions_SMA(Function_name,dimSize);
 
-model = CreateModelSMA(lb,ub); % Festlegen der Karte, inkl. Start und Endpunkt
+% Festlegen der Karte, inkl. Start und Endpunkt
+model = CreateModelSMA(lb,ub); 
 
+% SMA Algorithmus
 [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
 
 %% Plots
@@ -73,7 +76,7 @@ figure
 if strcmp(Function_name, 'F00')
     [AllFitness, sol] = fobj(bestPositions, model);
     PlotSolution_SMA(sol, model);
-    title(['Bestes Ergebnis des SMAs mit einer Weglänge von ' num2str(AllFitness)])
+    title(['Bestes Ergebnis des SMAs mit einer Pfadlänge von ' num2str(AllFitness)])
 else
     points = [start bestPositions End];
     points2 = zeros(length(points)/2, 2);
