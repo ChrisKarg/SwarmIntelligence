@@ -44,7 +44,7 @@ Function_name='F00'; % Name of the test function, range from F10-F13
 
 T=200; % Maximum number of iterations
 
-NumberofPoints = 5;
+NumberofPoints = 3;
 
 dimSize = NumberofPoints*2;   %dimension size
 
@@ -56,7 +56,7 @@ dimSize = NumberofPoints*2;   %dimension size
 model = CreateModelSMA(lb,ub); 
 
 % SMA Algorithmus
-[Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
+[Destination_fitness,bestPositions,Convergence_curve,X]=LSMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
 
 %% Plots
 % Convergernce Curve
