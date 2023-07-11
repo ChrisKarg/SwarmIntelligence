@@ -39,7 +39,7 @@
 % Max_iter: maximum iterations, N: populatoin size, Convergence_curve: Convergence curve
 % To run SMA: [Destination_fitness,bestPositions,Convergence_curve]=SMA(N,Max_iter,lb,ub,dim,fobj)
 function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot)
-    disp('SMA is now tackling your problem')
+    % disp('SMA is now tackling your problem')
     
     % initialize position
     bestPositions=zeros(1,dim);
