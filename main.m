@@ -38,13 +38,13 @@ clc
 showPlot = 6; % Wie oft soll die aktuelle Lösung geplottet werden (0 -> nie
 % , 1 -> jedes Mail, 2 -> jedes zweite Mal,..., 5 -> jedes fünfte Mal, ...)
 
-N=30; % Number of search agents
+N=100; % Number of search agents
 
 Function_name='F00'; % Name of the test function, range from F10-F13
 
-T=200; % Maximum number of iterations
+T=500; % Maximum number of iterations
 
-NumberofPoints = 3;
+NumberofPoints = 4;
 
 dimSize = NumberofPoints*2;   %dimension size
 
@@ -53,10 +53,10 @@ dimSize = NumberofPoints*2;   %dimension size
 [lb,ub,dim,fobj]=Get_Functions_SMA(Function_name,dimSize);
 
 % Festlegen der Karte, inkl. Start und Endpunkt
-model = CreateModelSMA(lb,ub); 
+[model, lb, ub] = CreateModelSMA(lb,ub, 5); 
 
 % SMA Algorithmus
-[Destination_fitness,bestPositions,Convergence_curve,X]=LSMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
+[Destination_fitness,bestPositions,Convergence_curve,X]=AOSMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
 
 %% Plots
 % Convergernce Curve

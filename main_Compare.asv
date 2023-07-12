@@ -56,10 +56,9 @@ export = 0;
 
 
 for N = [30, 65, 100]
-for T = 2
-for Times = 2
+for T = [200, 300, 500]
+for Times = [10, 20, 30]
 for NumberofPoints = [3, 4, 7]
-close all
 s = ['_NrA' num2str(N) '_MaxIt' num2str(T) '_Tms' num2str(Times) '_Pts' num2str(NumberofPoints) '.jpg'];
 
 %% Code
@@ -123,7 +122,7 @@ for j=1:Cards/2
     end
 end
 if export == 1
-    saveas(gcf,['Pfade_Teil1' s])
+    saveas(gcf,'Pfade_Teil1.jpg')
 end
 
 figure('units','normalized','outerposition',[0 0 1 1]);
@@ -137,7 +136,7 @@ for j=(Cards/2)+1:Cards
 end
 
 if export == 1
-    saveas(gcf,['Pfade_Teil2' s])
+    saveas(gcf,'Pfade_Teil2.jpg')
 end
 %% Plot jeder Karte mit der Konvergenz besten Lösung der drei Algorithmen (Zweimal 3x3
 % Plot)
@@ -156,7 +155,7 @@ for j=1:Cards/2
     end
 end
 if export == 1
-    saveas(gcf,['Konvergenzkurve_Teil1' s])
+    saveas(gcf,'Konvergenzkurve_Teil1.jpg')
 end
 
 figure('units','normalized','outerposition',[0 0 1 1]);

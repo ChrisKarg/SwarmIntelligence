@@ -29,8 +29,8 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
             robs=[1.5 1.0 0.8];
             xt=4;
             yt=6;
-            lb = 3;
-            ub = 9;
+            lb = -4;
+            ub = 10;
         case 2
             nrO = 3;
             xs=0;
@@ -40,8 +40,8 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
             robs=[0.8 1.5 1];
             xt=4;
             yt=6;
-            lb = 3;
-            ub = 9;
+            lb = -4;
+            ub = 10;
         case 3
             nrO = 6;
             xs=0;
@@ -51,8 +51,8 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
             robs=[1.5 0.9 0.4 0.6 0.8 0.6];
             xt = 10;
             yt = 10;
-            lb = 3;
-            ub = 13;
+            lb = -4;
+            ub = 14;
         case 4
             nrO = 13;
             xs=3;
@@ -62,8 +62,8 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
             robs = [0.5 0.4 0.4 0.8 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7 0.7];
             xt = 14;
             yt = 14;
-            lb = 0;
-            ub = 17;
+            lb = -1;
+            ub = 18;
         case 5
             nrO = 30;
             xs=3;
@@ -73,8 +73,8 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
             robs = [0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4];
             xt = 14;
             yt = 14;
-            lb = 0;
-            ub = 17;
+            lb = -1;
+            ub = 18;
         case 6
             nrO = 45;
             xs=3;
@@ -84,15 +84,15 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
             robs = [0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4 0.4];
             xt = 15;
             yt = 15;
-            lb = 0;
-            ub = 18;
+            lb = -1;
+            ub = 19;
     end
     
-    xmin=-lb;
-    xmax= ub;
-    
-    ymin=-lb;
-    ymax= ub;
+    % xmin=-lb;
+    % xmax= ub;
+    % 
+    % ymin=-lb;
+    % ymax= ub;
     
     model.xs=xs;
     model.ys=ys;
@@ -102,9 +102,9 @@ function [model, lb, ub] =CreateModelSMA(lb, ub, i)
     model.yobs=yobs;
     model.robs=robs;
     model.n=nrO;
-    model.xmin=xmin;
-    model.xmax=xmax;
-    model.ymin=ymin;
-    model.ymax=ymax;
+    % model.xmin=xmin;
+    % model.xmax=xmax;
+    % model.ymin=ymin;
+    % model.ymax=ymax;
     
 end

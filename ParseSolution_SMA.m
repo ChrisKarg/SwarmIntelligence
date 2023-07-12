@@ -29,7 +29,7 @@ function sol2=ParseSolution_SMA(sol1,model)
     k=numel(XS);
     TS=linspace(0,1,k);
     
-    tt=linspace(0,1,100);
+    tt=linspace(0,1,200);
     xx=spline(TS,XS,tt); %Spline Interpolation zwischen allen Punkten inklusive Start und Endpunkt
     yy=spline(TS,YS,tt);
     
