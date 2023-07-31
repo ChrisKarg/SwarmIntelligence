@@ -1,32 +1,18 @@
-%---------------------------------------------------------------------------------------------------------------------------
-%  Author, inventor and programmer: Ali Asghar Heidari,
-%  Researcher, Department of Computer Science, School of Computing, National University of Singapore, Singapore
-%  Exceptionally Talented Ph. DC funded by Iran's National Elites Foundation (INEF), University of Tehran
-%  03-03-2019
 
-%  Researchgate: https://www.researchgate.net/profile/Ali_Asghar_Heidari
-
-%  e-Mail: as_heidari@ut.ac.ir, aliasghar68@gmail.com,
-%  e-Mail (Singapore): aliasgha@comp.nus.edu.sg, t0917038@u.nus.edu
-%---------------------------------------------------------------------------------------------------------------------------
-%  Co-author: Shimin Li(simonlishimin@foxmail.com)
-%             Huiling Chen(chenhuiling.jlu@gmail.com)
-%             Mingjing Wang(wangmingjing.style@gmail.com)
-%             Seyedali Mirjalili(ali.mirjalili@gmail.com)
-%---------------------------------------------------------------------------------------------------------------------------
-
-% Please refer to the main paper:
+% In this main file one of the algorithms to be selected (SMA, LSMA, AOSMA) 
+% can be run once. For multiple runs and comparisons, you can use the 
+% main_Compare file. The basic code for the SMA algorithm is based on:
+%
 % Slime Mould Algorithm: A New Method for Stochastic Optimization
 % Shimin Li, Huiling Chen, Mingjing Wang, Ali Asghar Heidari, Seyedali Mirjalili
 % Future Generation Computer Systems,2020
 % DOI: https://doi.org/10.1016/j.future.2020.03.055
 % https://www.sciencedirect.com/science/article/pii/S0167739X19320941
-% ------------------------------------------------------------------------------------------------------------
-% Website of SMA: http://www.alimirjalili.com/SMA.html
-% You can find and run the SMA code online at http://www.alimirjalili.com/SMA.html
-
-% You can find the SMA paper at https://doi.org/10.1016/j.future.2020.03.055
-% Please follow the paper for related updates in researchgate: https://www.researchgate.net/publication/340431861_Slime_mould_algorithm_A_new_method_for_stochastic_optimization
+%
+% For the code structure of the oprtimization problem of path finding, to 
+% which the algorithms are applied, is inspired by Yarpiz:
+%
+% https://yarpiz.com/50/ypea102-particle-swarm-optimization
 %---------------------------------------------------------------------------------------------------------------------------
 
 
@@ -35,28 +21,31 @@ close all
 clc
 
 %% Intitialisierung
-showPlot = 6; % Wie oft soll die aktuelle Lösung geplottet werden (0 -> nie
+showPlot = 7; % Wie oft soll die aktuelle Lösung geplottet werden (0 -> nie
 % , 1 -> jedes Mail, 2 -> jedes zweite Mal,..., 5 -> jedes fünfte Mal, ...)
 
-N=100; % Number of search agents
+N=30; % Number of search agents
 
 Function_name='F00'; % Name of the test function, range from F10-F13
 
-T=500; % Maximum number of iterations
+T=400; % Maximum number of iterations
 
 NumberofPoints = 4;
 
 dimSize = NumberofPoints*2;   %dimension size
+
+StpIt = 100; % nach, wie vielen Runden bei keiner Änderung gestoppt werden soll
+StpEps = 1e-2; % Schranke für keine Änderung
 
 %% Code
 % Load details of the selected benchmark function
 [lb,ub,dim,fobj]=Get_Functions_SMA(Function_name,dimSize);
 
 % Festlegen der Karte, inkl. Start und Endpunkt
-[model, lb, ub] = CreateModelSMA(lb,ub, 5); 
+[model, lb, ub] = CreateModelSMA(lb,ub, 1); 
 
 % SMA Algorithmus
-[Destination_fitness,bestPositions,Convergence_curve,X]=AOSMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot);
+[Destination_fitness,bestPositions,Convergence_curve,X] = SMA(N,T,lb,ub,dim,fobj, model, Function_name, showPlot, StpIt, StpEps);
 
 %% Plots
 % Convergernce Curve

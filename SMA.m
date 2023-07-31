@@ -38,7 +38,7 @@
 
 % Max_iter: maximum iterations, N: populatoin size, Convergence_curve: Convergence curve
 % To run SMA: [Destination_fitness,bestPositions,Convergence_curve]=SMA(N,Max_iter,lb,ub,dim,fobj)
-function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot)
+function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot, StpIt, StpEps)
     % disp('SMA is now tackling your problem')
     
     % initialize position
@@ -121,6 +121,13 @@ function [Destination_fitness,bestPositions,Convergence_curve,X]=SMA(N,Max_iter,
     %         end
         end
         Convergence_curve(it)=Destination_fitness;
+
+        if it>200
+            if sum(abs(diff(Convergence_curve(it-StpIt:it))))<StpEps
+                break
+            end
+        end
+
         it=it+1;
     
         % Plot Solution

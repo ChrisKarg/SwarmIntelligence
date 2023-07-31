@@ -1,5 +1,5 @@
 %% The Adative Opposition Slime Mould Algorithm (AOSMA) function
-function [Destination_fitness,bestPositions,Convergence_curve, X]=AOSMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot)
+function [Destination_fitness,bestPositions,Convergence_curve, X]=AOSMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot, StpIt, StpEps)
 
 bestPositions=zeros(1,dim);
 Destination_fitness=inf;%change this to -inf for maximization problems
@@ -103,6 +103,13 @@ while  it <= Max_iter
         end
     end
     Convergence_curve(it)=Destination_fitness;
+
+    if it>200
+        if sum(abs(diff(Convergence_curve(it-StpIt:it))))<StpEps
+            break
+        end
+    end
+
     it=it+1;
 
     % Plot Solution

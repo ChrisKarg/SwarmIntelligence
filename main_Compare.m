@@ -50,15 +50,16 @@ NumberofPoints = 4;  %3,4, 7 %dimension size
 
 Cards = 6; %Number of Cards, you want to run the algorithm
 
-export = 0;
+export = 1;
+
+StpIt = 100; % nach, wie vielen Runden bei keiner Änderung gestoppt werden soll
+StpEps = 1e-2; % Schranke für keine Änderung
 
 
-
-
-for N = [30, 65, 100]
-for T = 2
-for Times = 2
-for NumberofPoints = [3, 4, 7]
+for N = [50]
+for T = [500]
+for Times = [5]
+for NumberofPoints = [4]
 close all
 s = ['_NrA' num2str(N) '_MaxIt' num2str(T) '_Tms' num2str(Times) '_Pts' num2str(NumberofPoints) '.jpg'];
 
@@ -79,17 +80,17 @@ for j = 1:Cards
     for i=1:Times
         % SMA
         tic;
-        [Destination_fitness{1, j}(i), bestPositions{1, j}(i,:),Convergence_curve{1, j}(i,:)]=SMA(N,T,lb,ub,dim,fobj, model{j}, Function_name, showPlot);
+        [Destination_fitness{1, j}(i), bestPositions{1, j}(i,:),Convergence_curve{1, j}(i,:)]=SMA(N,T,lb,ub,dim,fobj, model{j}, Function_name, showPlot, StpIt, StpEps);
         % display(['The optimal fitness of SMA is: ', num2str(Destination_fitness{1, j}(i))]);
         time{1, j}(i) = toc;
         % AOSMA
         tic;
-        [Destination_fitness{2, j}(i), bestPositions{2, j}(i,:),Convergence_curve{2, j}(i,:)]=AOSMA(N,T,lb,ub,dim,fobj, model{j}, Function_name, showPlot);
+        [Destination_fitness{2, j}(i), bestPositions{2, j}(i,:),Convergence_curve{2, j}(i,:)]=AOSMA(N,T,lb,ub,dim,fobj, model{j}, Function_name, showPlot, StpIt, StpEps);
         % display(['The optimal fitness of AOSMA is: ', num2str(Destination_fitness{2, j}(i))]);
         time{2, j}(i) = toc;
         % LSMA
         tic;
-        [Destination_fitness{3, j}(i), bestPositions{3, j}(i,:),Convergence_curve{3, j}(i,:)]=LSMA(N,T,lb,ub,dim,fobj, model{j}, Function_name, showPlot);
+        [Destination_fitness{3, j}(i), bestPositions{3, j}(i,:),Convergence_curve{3, j}(i,:)]=LSMA(N,T,lb,ub,dim,fobj, model{j}, Function_name, showPlot, StpIt, StpEps);
         % display(['The optimal fitness of LSMA is: ', num2str(Destination_fitness{3, j}(i))]);
         time{3, j}(i) = toc;
     end
@@ -146,7 +147,7 @@ for j=1:Cards/2
     for i=1:3
         subplot(3,3, (j-1)*3+i);
         semilogy(bestCon{i,j},'Color','b','LineWidth',4);
-        title(['Convergence Curve of ' str{i} 'for Card ' num2str(j)]);
+        title(['Convergence Curve of ' str{i} ' for Card ' num2str(j)]);
         xlabel('Iteration');
         ylabel('Path length');
         axis tight
@@ -164,7 +165,7 @@ for j=(Cards/2)+1:Cards
     for i=1:3
         subplot(3,3, (j-((Cards/2)+1))*3+i);
         semilogy(bestCon{i,j},'Color','b','LineWidth',4);
-        title(['Convergence Curve of ' str{i} 'for Card ' num2str(j)])
+        title(['Convergence Curve of ' str{i} ' for Card ' num2str(j)])
         xlabel('Iteration');
         ylabel('Path length');
         axis tight
