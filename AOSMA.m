@@ -1,4 +1,33 @@
-%% The Adative Opposition Slime Mould Algorithm (AOSMA) function
+% The following is in large part the original code of the AOSMA. Only small 
+% parts of the code are applied to the path finding problem 
+%
+% Christian Karg and Jonas Jakob Schwämmle
+% ------------------------------------------------------------------------------------------------------------
+
+% Adative Opposition Slime Mould Algorithm (AOSMA)
+%
+%
+% Author and programmer: 
+% Dr Manoj Kumar Naik
+% Faculty of Engineering and Technology, Siksha O Anusandhan, Bhubaneswar, Odisha – 751030, India 
+% e-mail:       naik.manoj.kumar@gmail.com
+% ORCID:        https://orcid.org/0000-0002-8077-1811
+% SCOPUS:       https://www.scopus.com/authid/detail.uri?authorId=35753522900
+% Publons:      https://publons.com/researcher/2057920/manoj-kumar-naik/
+% G-Scholar:    https://scholar.google.co.in/citations?user=tX-8Xw0AAAAJ&hl=en 
+% Researchgate: https://www.researchgate.net/profile/Manoj_Naik9
+% DBLP:         https://dblp.uni-trier.de/pers/k/Kumar:Naik_Manoj
+%_____________________________________________________________________________________________________           
+% Please cite to the main paper:
+% ******************************
+% Naik, Manoj Kumar; Panda, Rutuparna; Abraham, Ajith (2021): Adaptive 
+% opposition slime mould algorithm. 
+% In: Soft Comput 25 (22), S. 14297–14313. DOI: 10.1007/s00500-021-06140-2.
+%
+% This program using the framework of SMA by Ali Asghar Heidari
+% https://aliasgharheidari.com/SMA.html
+%_____________________________________________________________________________________________________
+
 function [Destination_fitness,bestPositions,Convergence_curve, X]=AOSMA(N,Max_iter,lb,ub,dim,fobj, model, Function_name, showPlot, StpIt, StpEps)
 
 bestPositions=zeros(1,dim);

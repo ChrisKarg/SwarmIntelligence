@@ -1,32 +1,15 @@
-%---------------------------------------------------------------------------------------------------------------------------
-%  Author, inventor and programmer: Ali Asghar Heidari,
-%  Researcher, Department of Computer Science, School of Computing, National University of Singapore, Singapore
-%  Exceptionally Talented Ph. DC funded by Iran's National Elites Foundation (INEF), University of Tehran
-%  03-03-2019
-
-%  Researchgate: https://www.researchgate.net/profile/Ali_Asghar_Heidari
-
-%  e-Mail: as_heidari@ut.ac.ir, aliasghar68@gmail.com,
-%  e-Mail (Singapore): aliasgha@comp.nus.edu.sg, t0917038@u.nus.edu
-%---------------------------------------------------------------------------------------------------------------------------
-%  Co-author: Shimin Li(simonlishimin@foxmail.com)
-%             Huiling Chen(chenhuiling.jlu@gmail.com)
-%             Mingjing Wang(wangmingjing.style@gmail.com)
-%             Seyedali Mirjalili(ali.mirjalili@gmail.com)
-%---------------------------------------------------------------------------------------------------------------------------
-
-% Please refer to the main paper:
-% Slime Mould Algorithm: A New Method for Stochastic Optimization
-% Shimin Li, Huiling Chen, Mingjing Wang, Ali Asghar Heidari, Seyedali Mirjalili
-% Future Generation Computer Systems,2020
-% DOI: https://doi.org/10.1016/j.future.2020.03.055
-% https://www.sciencedirect.com/science/article/pii/S0167739X19320941
-% ------------------------------------------------------------------------------------------------------------
-% Website of SMA: http://www.alimirjalili.com/SMA.html
-% You can find and run the SMA code online at http://www.alimirjalili.com/SMA.html
-
-% You can find the SMA paper at https://doi.org/10.1016/j.future.2020.03.055
-% Please follow the paper for related updates in researchgate: https://www.researchgate.net/publication/340431861_Slime_mould_algorithm_A_new_method_for_stochastic_optimization
+% Author and Programmer:
+% Christian Karg and Jonas Jakob Schwämmle
+% 
+% In this main_Compare file all of the algorithms (SMA, LSMA, AOSMA) 
+% can be run multiple times. For one single run you can use the 
+% main file. 
+%
+% For the code structure of the oprtimization problem of path finding, to 
+% which the algorithms are applied, is inspired by Yarpiz:
+%
+% https://yarpiz.com/50/ypea102-particle-swarm-optimization
+%
 %---------------------------------------------------------------------------------------------------------------------------
 
 
@@ -38,28 +21,20 @@ clc
 showPlot = 0; % Wie oft soll die aktuelle Lösung geplottet werden (0 -> nie
 % , 1 -> jedes Mail, 2 -> jedes zweite Mal,..., 5 -> jedes fünfte Mal, ...)
 
-N= 30; % 30, 65, 100 % Number of search agents
-
 Function_name='F00'; % Name of the test function, range from F10-F13
 
-T = 2; %200 % 300 %500 % Maximum number of iterations
+Cards = 6; %Number of Cards, you want to run the algorithm %shouldn´t change that
 
-Times = 2; % 10 %20 % 30 %Number of independent times you want to run the algorithm
-
-NumberofPoints = 4;  %3,4, 7 %dimension size
-
-Cards = 6; %Number of Cards, you want to run the algorithm
-
-export = 1;
+export = 0; % you can save the figures
 
 StpIt = 100; % nach, wie vielen Runden bei keiner Änderung gestoppt werden soll
 StpEps = 1e-2; % Schranke für keine Änderung
 
 
-for N = [50]
-for T = [500]
-for Times = [5]
-for NumberofPoints = [4]
+for N = [30] % 30, 65, 100 % Number of search agents
+for T = [300] %200 % 300 %500 % Maximum number of iterations
+for Times = [1] % 10 %20 % 30 %Number of independent times you want to run the algorithm
+for NumberofPoints = [4] %3,4, 7 %dimension size
 close all
 s = ['_NrA' num2str(N) '_MaxIt' num2str(T) '_Tms' num2str(Times) '_Pts' num2str(NumberofPoints) '.jpg'];
 

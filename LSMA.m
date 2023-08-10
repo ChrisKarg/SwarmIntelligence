@@ -1,3 +1,9 @@
+% The following is in large part the original code of the LSMA. Only small 
+% parts of the code are applied to the path finding problem 
+%
+% Christian Karg and Jonas Jakob Schwämmle
+% ------------------------------------------------------------------------------------------------------------
+
 % Leader Slime Mould Algorithm (LSMA) source Code Version 1.0
 %
 % Developed in MATLAB R2018b

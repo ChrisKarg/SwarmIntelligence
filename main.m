@@ -1,18 +1,15 @@
-
+% Author and Programmer:
+% Christian Karg and Jonas Jakob Schwämmle
+% 
 % In this main file one of the algorithms to be selected (SMA, LSMA, AOSMA) 
 % can be run once. For multiple runs and comparisons, you can use the 
-% main_Compare file. The basic code for the SMA algorithm is based on:
-%
-% Slime Mould Algorithm: A New Method for Stochastic Optimization
-% Shimin Li, Huiling Chen, Mingjing Wang, Ali Asghar Heidari, Seyedali Mirjalili
-% Future Generation Computer Systems,2020
-% DOI: https://doi.org/10.1016/j.future.2020.03.055
-% https://www.sciencedirect.com/science/article/pii/S0167739X19320941
+% main_Compare file. 
 %
 % For the code structure of the oprtimization problem of path finding, to 
 % which the algorithms are applied, is inspired by Yarpiz:
 %
 % https://yarpiz.com/50/ypea102-particle-swarm-optimization
+%
 %---------------------------------------------------------------------------------------------------------------------------
 
 
@@ -26,7 +23,7 @@ showPlot = 7; % Wie oft soll die aktuelle Lösung geplottet werden (0 -> nie
 
 N=30; % Number of search agents
 
-Function_name='F00'; % Name of the test function, range from F10-F13
+Function_name='F00'; % Name of the test function, range from F10-F13 % F00 for the problem of pathfinding for mobile robots
 
 T=400; % Maximum number of iterations
 

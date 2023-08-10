@@ -1,3 +1,9 @@
+% The following is in large part the original code of the SMA. Only small 
+% parts of the code are applied to the path finding problem 
+%
+% Christian Karg and Jonas Jakob Schwämmle
+% ------------------------------------------------------------------------------------------------------------
+
 % Source codes demo version 1.0
 % ------------------------------------------------------------------------------------------------------------
 % Main paper (Please refer to the main paper):
